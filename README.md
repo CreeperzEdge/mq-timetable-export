@@ -8,9 +8,12 @@ for you to roll your own exporter if the builtin formats aren’t adequate.
 Take a look at the exporters and tests to get an idea of how to use the code to
 create a custom export format.
 
+Ported to using pyppeteer out of laziness and not wanting to implement Okta
+auth.
+
 ## Usage
 
-Tested on Python 3.7.6.
+Tested on Python 3.10.2.
 
     python -m estudent -u45678901 -pMyPassword4 csv
 
