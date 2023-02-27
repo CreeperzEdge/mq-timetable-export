@@ -1,5 +1,5 @@
 
-import requests
+#import requests
 import pyppeteer
 
 from .misc import LOGIN_URL, TIMETABLE_URL, make_soup
@@ -13,12 +13,12 @@ class Client:
     TIMEOUT = 10000
 
     def __init__(self, browser):
-        self.session = requests.Session()
+        #self.session = requests.Session()
         self.browser = browser
         self.page = None
 
-    def request(self, verb, url, *args, timeout=TIMEOUT, **kwargs):
-        return self.session.request(verb, url, *args, timeout=timeout, **kwargs)
+    #def request(self, verb, url, *args, timeout=TIMEOUT, **kwargs):
+    #    return self.session.request(verb, url, *args, timeout=timeout, **kwargs)
 
     def _aspnet_viewstate_params(self, soup):
         param_names = ('__VIEWSTATE', '__VIEWSTATEGENERATOR', '__EVENTVALIDATION')
