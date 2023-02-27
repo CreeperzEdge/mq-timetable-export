@@ -47,7 +47,8 @@ class Client:
             await page.waitForNavigation(timeout=Client.TIMEOUT)
         except: 
             raise LoginError()
-        await page.waitForSelector(".cssT1SmBannerLogo")
+        await page.waitForSelector("a[aria-description*=\"My Class Registrations\"]")
+
         #resp = self.request('POST', LOGIN_URL, json=data, allow_redirects=True, timeout=self.TIMEOUT)
         #if resp.status_code != 302:
         #    raise LoginError(resp)
@@ -55,6 +56,15 @@ class Client:
     async def fetch_my_classes_page(self):
         page = self.page
         await page.goto(TIMETABLE_URL)
+
+        await page.waitForSelector("#Contextual_RegistrationPeriod_Container > div.tbcEditorField.blurContainer > div.tbcInputContainer.hasPicker.pickersOne > button")
+        await page.click("#Contextual_RegistrationPeriod_Container > div.tbcEditorField.blurContainer > div.tbcInputContainer.hasPicker.pickersOne > button")
+        study_periods = await page.querySelectorAll("#Contextual_RegistrationPeriod_Container > div.tbcEditorField.blurContainer.activeSuggest > div.suggestionPaneWrapper.positionBelow.shown > div.suggestionPane.autoSuggest.mainBCol2.webkitOverflowTouch.picklist > table > tbody > tr")
+        if len(study_periods) > 1:
+            raise NotImplementedError("cant test with only 1 option")
+        await study_periods[0].click()
+        await page.click("#ContextualKeysOkButton")
+        await page.waitForSelector("#StudentClassRegistrationCalendarSection_TopActionPanel")
 
         text = await page.content()
         soup = make_soup(text)

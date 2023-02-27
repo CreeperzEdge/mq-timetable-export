@@ -38,7 +38,7 @@ async def main():
 
     exporter_name = args.format
     exporter = exporters_reg[exporter_name]()
-    b = await pyppeteer.launch(headless=True)
+    b = await pyppeteer.launch(headless=False)
 
     client = estudent.Client(b)
     await client.login(username, password)
